@@ -1,9 +1,9 @@
-## CS215 Software Design Project Proposal
-### Mina Khan
+## CS215 Software Design: Project Proposal
+### By Mina Khan
 
 ### Topic of Study: Event-driven programming using event handlers, callbacks and publish-subscribe pattern
 
-In computer programming, event-driven programming is a programming paradigm in which the flow of the program is determined by events—i.e., sensor outputs or user actions (mouse clicks, key presses) or messages from other programs or threads [1](http://www.princeton.edu/~achaney/tmve/wiki100k/docs/Event-driven_programming.html). Event handlers are a common manifestation of event-driven programming, and these are widely used in web applications.
+In computer programming, event-driven programming is a programming paradigm in which the flow of the program is determined by events—i.e., sensor outputs or user actions (mouse clicks, key presses) or messages from other programs or threads [[1](http://www.princeton.edu/~achaney/tmve/wiki100k/docs/Event-driven_programming.html). Event handlers are a common manifestation of event-driven programming, and these are widely used in web applications.
 
 Publish/Subscribe pattern fall under the category of event-driven programming and is closed realted to observer pattern. Publish–subscribe is a messaging pattern where senders of messages, called publishers, do not program the messages to be sent directly to specific receivers, called subscribers. Instead, published messages are characterized into classes, without knowledge of what, if any, subscribers there may be. Similarly, subscribers express interest in one or more classes, and only receive messages that are of interest, without knowledge of what, if any, publishers there are. [2](http://en.wikipedia.org/wiki/Publish%E2%80%93subscribe_pattern)
 
