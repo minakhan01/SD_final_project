@@ -2,7 +2,14 @@
 ```javascript
 ```
 
-##### Ping/Pong: 
+### Publish/Subscribe in WearScript:
+
+#### Methods
+
+* ```publish(String channel, args...) : void```: publish messages on channel with optional arguments
+* ```subscribe(String channel, Function callback) : void```: subscribe to messages on channel with a defined callback
+
+#### Ping/Pong: 
 Send messages from wearscript to python. These messages are sent over a Go server.
 
 ```javascript
