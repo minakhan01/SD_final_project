@@ -2,6 +2,30 @@
 ```javascript
 ```
 
+### Event handling in WearScript:
+
+```javascript
+// LONG_PRESS, SWIPE_DOWN, SWIPE_LEFT, SWIPE_RIGHT, TAP, THREE_LONG_PRESS,
+// THREE_TAP, TWO_LONG_PRESS, TWO_SWIPE_RIGHT, TWO_SWIPE_UP, TWO_TAP
+WS.gestureCallback('onGestureTAP', function () {
+// Stream camera frames (can view in the Images tab)
+WS.cameraOn(0.25);
+});
+
+WS.gestureCallback('onGestureTWO_TAP', function () {
+WS.speechRecognize('Say Something', function (data) {
+    WS.log('speech: ' + data);
+    WS.say('you said ' + data);
+});
+});
+
+// LONG_PRESS, SWIPE_DOWN, SWIPE_LEFT, SWIPE_RIGHT, TAP, THREE_LONG_PRESS,
+// THREE_TAP, TWO_LONG_PRESS, TWO_SWIPE_RIGHT, TWO_SWIPE_UP, TWO_TAP
+WS.gestureCallback('onGestureLONG_PRESS', function () {
+WS.cameraVideo();
+});
+```
+
 ### Publish/Subscribe in WearScript:
 
 #### Methods
