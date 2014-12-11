@@ -4,25 +4,34 @@
 
 ### Event handling in WearScript:
 
+I the following WearScript code, I am handling gesture and speech events for glass using callbacks. I have shown the use of anonymous and named callbacks, and an example of closre. Please see the commented code below for more details.
+
 ```javascript
-// LONG_PRESS, SWIPE_DOWN, SWIPE_LEFT, SWIPE_RIGHT, TAP, THREE_LONG_PRESS,
-// THREE_TAP, TWO_LONG_PRESS, TWO_SWIPE_RIGHT, TWO_SWIPE_UP, TWO_TAP
+// Possible gestures: LONG_PRESS, SWIPE_DOWN, SWIPE_LEFT, SWIPE_RIGHT, TAP, TWO_TAP
+// THREE_LONG_PRESS, THREE_TAP, TWO_LONG_PRESS, TWO_SWIPE_RIGHT, TWO_SWIPE_UP, 
 WS.gestureCallback('onGestureTAP', function () {
-// Stream camera frames (can view in the Images tab)
-WS.cameraOn(0.25);
+    // Stream camera frames (can view in the Images tab)
+    WS.cameraOn(0.25);
 });
+
+// Named callback
+var speech_callback=function (data) {
+    WS.say('you said ' + data);
+    function write(){
+        // closure example: data variable is available to inner function
+        WS.log('speech: ' + data);
+    }
+    write();
+}
 
 WS.gestureCallback('onGestureTWO_TAP', function () {
-WS.speechRecognize('Say Something', function (data) {
-    WS.log('speech: ' + data);
-    WS.say('you said ' + data);
-});
+    var in_gesture='TWO TAP';
+    //  Named callback speech_callback
+    WS.speechRecognize('Say Something', speech_callback);
 });
 
-// LONG_PRESS, SWIPE_DOWN, SWIPE_LEFT, SWIPE_RIGHT, TAP, THREE_LONG_PRESS,
-// THREE_TAP, TWO_LONG_PRESS, TWO_SWIPE_RIGHT, TWO_SWIPE_UP, TWO_TAP
 WS.gestureCallback('onGestureLONG_PRESS', function () {
-WS.cameraVideo();
+    WS.cameraVideo();
 });
 ```
 
