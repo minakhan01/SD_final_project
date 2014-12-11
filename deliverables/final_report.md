@@ -2,7 +2,8 @@
 ```javascript
 ```
 
-Ping/Pong: Send messages from wearscript to python. These messages are sent over a Go server.
+##### Ping/Pong: 
+Send messages from wearscript to python. These messages are sent over a Go server.
 
 ```javascript
 function main() {
