@@ -9,8 +9,60 @@
 * ```publish(String channel, args...) : void```: publish messages on channel with optional arguments
 * ```subscribe(String channel, Function callback) : void```: subscribe to messages on channel with a defined callback
 
-#### Ping/Pong: 
-Send messages from wearscript to python. These messages are sent over a Go server.
+#### Subscribe to Image/Sensor stream:
+
+WearScript initiates image and sensor streams, and python client subscribes to these channels. Please see the code and comments below.
+
+WearScript Javascript:
+
+```javascript
+function main() {
+    if (WS.scriptVersion(1)) return;
+    WS.serverConnect('{{WSUrl}}', function () {
+
+    	// initialize sensor streams
+        WS.sensorOn('accelerometer', .25);
+
+        // initialize image stream
+        WS.cameraOn(1);
+
+        WS.dataLog(false, true, .15);
+    });
+}
+```
+
+Python client: run using command line ```python <filename>.py client <WS end point>``` 
+
+```python
+# Python: Client or Server
+import wearscript
+import argparse
+
+
+def callback(ws, **kw):
+
+    def get_image(chan, timestamp, image):
+        print('Image[%s] Time[%f] Bytes[%d]' % (chan, timestamp, len(image)))
+
+    def get_sensors(chan, names, samples):
+        print('Sensors[%s] Names[%r] Samples[%r]' % (chan, names, samples))
+
+    # callback: get_image, subscribe to image stream channel  
+    ws.subscribe('image', get_image)
+
+    # callback: get_sensors, subscribe to image sensors channel 
+    ws.subscribe('sensors', get_sensors)
+
+    # start handling websocket messages
+    ws.handler_loop()
+
+wearscript.parse(callback, argparse.ArgumentParser())
+```
+
+#### Ping/Pong (Publish/Subscribe): 
+Send *ping* message from Wearscript to Python client and *pong* message from python client to Wearcript. These messages are sent over a Go server. Please see the code and comments below.
+
+WearScript Javascript:
 
 ```javascript
 function main() {
@@ -35,6 +87,8 @@ function main() {
 }
 ```
 
+Python client: run using command line ```python <filename>.py client <WS end point>```
+
 ```python
 # Python: Client
 import wearscript
@@ -43,7 +97,7 @@ import argparse
 import time
 
 def callback(ws, **kw):
-
+	# Step 1 and 4 are in JS wearscript
     def get_ping(chan, resultChan, timestamp):
     	# Step 3: publish messages using ws, i.e. websocket, on resultChan
         ws.publish(resultChan, timestamp, time.time(), ws.group_device)
